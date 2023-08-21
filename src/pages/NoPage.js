@@ -4,29 +4,36 @@ import Four from "../assets/images.png";
 // import Header from "components/Header";
 // import Button from "react-tailwind/Button";
 import { useNavigate } from "react-router-dom";
-import Home from "./Home";
 
 const NoPage = () => {
-    const navigate = useNavigate();
-    
-    const navigateHome = () => {
-        // navigate to /
-        navigate('/');
-      };
+  const navigate = useNavigate();
 
-    return (
-        <>
-            {/* <Header title="" /> */}
+  const navigateHome = () => {
+    // navigate to /
+    navigate("/");
+  };
 
-            <div className=" h-screen w-screen flex flex-col pt-4 justify-center items-center ">
-                <div className="col mb-3 col-12 text-center">
-                    <img
-                        src={Four}
-                        className="flex justify-center items-center   "
-                        alt="page not found"
-                        style={{ width: "600px" ,height:"500px" ,maxHeight:" full " , borderRadius:"10px" }}
-                    />
-                    {/* <img
+  return (
+    <>
+      {/* <Header title="" /> */}
+
+      <div className=" h-screen w-screen flex flex-col pt-4 justify-center items-center ">
+        <div className="col mb-3 col-12 text-center absolute ">
+          <p className="relative top-14 text-5xl font-bold">404</p>
+          <img
+            src={
+              "https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif"
+            }
+            className="flex justify-center items-center   "
+            alt="page not found"
+            style={{
+              width: "600px",
+              height: "500px",
+              maxHeight: " full ",
+              borderRadius: "10px",
+            }}
+          />
+          {/* <img
                         src={Burger}
                         className="mr-2"
                         alt=""
@@ -38,30 +45,32 @@ const NoPage = () => {
                         alt=""
                         style={{ width: "150px" }}
                     /> */}
-                </div>
-                <div className=" flex flex-col  text-center mt-4">
-                    <h3>Page you're trying to access is not available</h3>
-                    <button
-                        variant="info"
-                        className="
+        </div>
+        <div className=" flex flex-col justify-center items-center text-center mt-96 z-10">
+          <h3 className="font-bold">
+            Page you're trying to access is not available
+          </h3>
+          <button
+            variant="info"
+            className="
                         bg-blue-500
                         hover:bg-blue-700
                         text-white font-bold 
                         // py-2
-                        w-[600px] 
+                        w-[200px] 
                         px-4 
                         border
                         border-blue-700 
                         rounded
                         mt-8"
-                        onClick={navigateHome}
-                    >
-                        Go to Home Page
-                    </button>
-                </div>
-            </div>
-        </>
-    );
+            onClick={navigateHome}
+          >
+            Go to Home Page
+          </button>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default NoPage;

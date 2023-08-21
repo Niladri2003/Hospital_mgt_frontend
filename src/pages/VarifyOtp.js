@@ -1,66 +1,105 @@
-import React, { useState } from "react";
-import Zoom from 'react-reveal/Zoom';
-
+import React, { useEffect, useState } from "react";
+import Zoom from "react-reveal/Zoom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { BsArrowLeftShort } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import OTPInput from "react-otp-input";
 
 const OTPBox = () => {
-    const [otp, setOtp] = useState(new Array(4).fill(""));
+  const [otp, setOtp] = useState("");
+  //   const { signupData, loading } = useSelector((state) => state.auth);
+  //   const dispatch = useDispatch();
+  //   const navigate = useNavigate();
 
-    const handleChange = (element, index) => {
-        if (isNaN(element.value)) return false;
+  useEffect(() => {
+    // Only allow access of this route when user has filled the signup form
+    //   if (!signupData) {
+    //     navigate("/signup");
+    //   }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-        setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+  const handelOnSubmit = (e) => {
+    e.preventDefault();
+    //   const {
+    //     accountType,
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     password,
+    //     confirmPassword,
+    //   } = signupData;
+    //   dispatch(
+    //     signUp(
+    //       accountType,
+    //       firstName,
+    //       lastName,
+    //       email,
+    //       password,
+    //       confirmPassword,
+    //       otp,
+    //       navigate
+    //     )
+    //   );
+  };
 
-        //Focus next input
-        if (element.nextSibling) {
-            element.nextSibling.focus();
-        }
-    };
+  return (
+    <div className="min-h-[calc(100vh-3.5rem)] grid place-items-center">
+      <Zoom>
+        <div className="max-w-[500px] p-4 lg:p-8">
+          <h1 className="text-richblack-5 font-semibold text-[1.875rem] leading-[2.375rem]">
+            Verify Email
+          </h1>
+          <p className="text-[1.125rem] leading-[1.625rem] my-4 text-richblack-100">
+            A verification code has been sent to you. Enter the code below
+          </p>
+          <form onSubmit={handelOnSubmit}>
+            <OTPInput
+              value={otp}
+              onChange={setOtp}
+              numInputs={6}
+              renderInput={(props) => (
+                <input
+                  {...props}
+                  placeholder="-"
+                  style={{
+                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+                  }}
+                  className="w-[48px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
+                />
+              )}
+              containerStyle={{
+                justifyContent: "space-between",
+                gap: "0 6px",
+              }}
+            />
+            <button
+              type="submit"
+              className="w-full bg-yellow-50 py-[12px] px-[12px] rounded-[8px] mt-6 font-medium text-richblack-900"
+            >
+              Verify Email
+            </button>
+          </form>
 
-    return (
-        <Zoom>
-
-
-            <div className="row bg-blue-400 px-4 py-4">
-                <div className="col text-center">
-
-                    <p className="text-2xl font-bold mb-5 ">Enter the OTP sent to you to verify your identity</p>
-
-                    {otp.map((data, index) => {
-                        return (
-                            <input
-                                className="otp-field w-[48px] mr-[10px] h-[48px] rounded-full text-center text-bold text-xl mb-5 "
-                                type="text"
-                                name="otp"
-                                maxLength="1"
-                                key={index}
-                                value={data}
-                                onChange={e => handleChange(e.target, index)}
-                                onFocus={e => e.target.select()}
-                            />
-                        );
-                    })}
-
-            
-                    <p>
-                        <button
-                            className="btn btn-secondary mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-                            onClick={e => setOtp([...otp.map(v => "")])}
-                        >
-                            Clear
-                        </button>
-                        <button
-                            className="btn btn-primary bg-green-800 hover:bg-green-400 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-                            onClick={e =>
-                                console.log(otp.join(""))
-                            }
-                        >
-                            Verify OTP
-                        </button>
-                    </p>
+          <div className="mt-5">
+            <div>
+              <Link to="/login">
+                <div className="flex flex-row items-center">
+                  <BsArrowLeftShort size={30} />
+                  <p>Back to login</p>
                 </div>
+              </Link>
+              <button className="ml-8 bg-white p-2 rounded-md">
+                {/* onClick={() => dispatch(sendOtp(signupData.email))} */}
+                Resend It
+              </button>
             </div>
-        </Zoom>
-    );
+          </div>
+        </div>
+      </Zoom>
+    </div>
+  );
 };
 
 export default OTPBox;
